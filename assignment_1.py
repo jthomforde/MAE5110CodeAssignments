@@ -40,7 +40,7 @@ def simulate_rimless_wheel(initial_state, params, common_timestep, sim_time):
     plt.figure()
     plt.plot(state_traj[0, :], state_traj[1, :])
     plt.xlabel("Angle(rad)")
-    plt.ylabel("Angular Momentum(rad/sec)")
+    plt.ylabel("Angular Velocity(rad/sec)")
     plt.title("Rimless Wheel Phase Portrait")
     plt.axvline(x=params["ramp_angle"] + params["alpha"], color='b', linestyle='--', label="Right Bound")
     plt.axvline(x=params["ramp_angle"] - params["alpha"], color='b', linestyle='--', label="Left Bound")
@@ -58,7 +58,7 @@ def simulate_rimless_wheel(initial_state, params, common_timestep, sim_time):
 def spoke_number_ROA_sweep(params, common_timestep, sim_time):
     
     thetadot_grid_steps = np.arange(-10, 10, 1)
-    num_spokes_steps = np.arange(6, 12, 1)
+    num_spokes_steps = np.arange(6, 13, 1)
 
     limit_cycle_converged = []
     stopped_converged = []
@@ -169,9 +169,9 @@ def ROA_stability_sweep(params, common_timestep, sim_time):
     stopped_converged     = np.array(stopped_converged)
 
     # Plotting the limit cycle line - AI assisted
-    G, L = params["gravity"], params["length"]
-    a, g = params["alpha"], params["ramp_angle"]
-    LEFT, RIGHT = g - a, g + a
+    gravity, L = params["gravity"], params["length"]
+    a, ramp_angle = params["alpha"], params["ramp_angle"]
+    LEFT, RIGHT = ramp_angle - a, ramp_angle + a
 
     # The wheel rolls toward whichever guard has lower potential energy
     # (PE = m*g*L*cos(theta)), lands there, and is reset to the other one.
@@ -181,11 +181,11 @@ def ROA_stability_sweep(params, common_timestep, sim_time):
         start, land, sign = LEFT, RIGHT, +1.0     # rolls toward +theta
 
     c = np.cos(2 * a)
-    D = (2 * G / L) * (np.cos(start) - np.cos(land))
+    D = (2 * gravity / L) * (np.cos(start) - np.cos(land))
     omega_star = np.sqrt(c**2 * D / (1 - c**2))   # post-impact speed on the cycle
 
     theta_cycle = np.linspace(start, land, 400)
-    thetadot_cycle = sign * np.sqrt(omega_star**2 + (2 * G / L) * (np.cos(start) - np.cos(theta_cycle)))
+    thetadot_cycle = sign * np.sqrt(omega_star**2 + (2 * gravity / L) * (np.cos(start) - np.cos(theta_cycle)))
 
 
     plt.figure()
