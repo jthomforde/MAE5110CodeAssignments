@@ -14,6 +14,7 @@ params = {
     "mass": 0.2,  # point mass at end of rod (kg)
     "damping_coeff": 0.0,  # damping coefficient (kg*m^2/s)
     "stiffness": 10000  # stiffness of the ground (spring behavior) (N/m)
+    "torque": 0.0,  # torque (Nm)
 }
 
 
