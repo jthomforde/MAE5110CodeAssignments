@@ -26,6 +26,7 @@ sim_time = 20.0  # s
 discount = 0.99
 SAVE_GIF = False  # Exporting every animation frame takes several seconds.
 
+# State and control grids used for value iteration
 angle_grid = np.linspace(-np.pi, np.pi, 69)
 velocity_grid = np.linspace(-10.0, 10.0, 121)
 grid_points = np.stack(np.meshgrid(angle_grid, velocity_grid, indexing="ij"), axis=-1)
@@ -76,6 +77,7 @@ state_traj[:, 0] = initial_state
 torque_traj = np.zeros(time_traj.size - 1)
 simulation_params = params.copy()
 
+# Simulate
 for k, t in enumerate(time_traj[:-1]):
     state = state_traj[:, k]
 

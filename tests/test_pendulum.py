@@ -3,6 +3,7 @@ import numpy as np
 from integrators import rk4
 from models import pendulum
 
+# Check conservation for the unforced, undamped pendulum
 
 def test_energy_conservation():
     params = pendulum.generate_params()
