@@ -65,6 +65,9 @@ def generate_params():
     }
     return params
 
+def generate_initial_condition():
+    return np.array([0.0, 0.0])
+
 # def can_pass_vertical(state, params):
 #     """True if the hub can carry over the vertical (theta = 0) from here.
 
